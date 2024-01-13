@@ -1,0 +1,15 @@
+{% load static %}
+
+
+<div>
+    <input type="submit" value="버튼" class="btn btn-primary" onclick="advice()">
+</div>
+<script>
+    function advice() {
+        fetch('https://api.adviceslip.com/advice');
+            .then(response =>{
+                console.log("response is: ", response);
+        })
+        .catch(error => console.error('error', error));
+    }
+</script>
