@@ -1,11 +1,20 @@
-# from django.http import HttpResponse
-#
-# def index(request):
-#     return HttpResponse("..")
-from django.contrib.sites import requests
+import requests
 from django.shortcuts import render
 
+
 def index(request):
-    return render(request, 'dd.html', {})
+    try:
+        response = requests.get("https://api.adviceslip.com/advice")
+        response.raise_for_status()
+        data = response.json()
+        print(data)
+    except requests.RequestException as e:
+        print(e)
+    return render(request, 'dd.html', {'data': data})
 
 
+def search(request):
+    print('hi')
+    if request.method == 'POST':
+        keyword = request.POST['query']
+        print(keyword)
